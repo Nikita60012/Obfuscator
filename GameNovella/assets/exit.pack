@@ -1,0 +1,12 @@
+
+exit.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+exit
+  rotate: false
+  xy: 1, 1
+  size: 50, 30
+  orig: 50, 30
+  offset: 0, 0
+  index: -1
