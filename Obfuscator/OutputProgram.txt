@@ -1,0 +1,1 @@
+public class A { static String a; A(){ a = "Hello world!"; } public static void main(String[] args){ printer(); } public static void printer(){ for(int b = 0; b < 10; b++) System.out.println(a); } }
