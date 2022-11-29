@@ -24,7 +24,7 @@ class SecondPass {
 
                 result = replacer(result, "\\s*" + oldName + "\\s*", " " + newName + " ");
                 //result = replacer(result, " " + oldName + ";", " " + newName + ";");
-                result = replacer(result, "\\(|\\s|\\.|,|=|-|\\*|/|\\+|\\[|\\{|!" + oldName + "\\)|\\s|\\.|,|=|-|\\*|/|\\+|\\]|\\}|!|;",  newName);
+                result = replacer(result, "\\( || \\s||\\.||,||=||-||\\*||/||\\+||\\[||\\{||!" + oldName + "\\)||\\s||\\.||,||=||-||\\*||/||\\+||\\]||\\}||!||;",  newName);
 
             }
         }
