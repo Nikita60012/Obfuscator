@@ -18,13 +18,15 @@ class FirstPass {
         //Удаление лишних пробелов
         String clearCode = code;
         int counter = 0;
-        String[] replacements = {"\\{", "\\}", "\\(", "\\)", "\\[", "\\]", "\\,", "\\.", "\\|","\\*", "\\+", "\\&", "\\|\\|", "\\&\\&",  "-", "=", "==", "<", ">", "<=", ">=", "!", "/", "%", ";"};
+        String[] replacements = {"\\{", "\\}", "\\(", "\\)", "\\[", "\\]", "\\,", "\\.", "\\|","\\*", "\\+", "\\&", "\\|\\|", "\\&\\&",  "==", "=", "-", "<", ">", "<=", ">=", "!", "/", "%", ";"};
         clearCode = clearCode.replaceAll(" +", " ");
         for (String str:replacements) {
-            if(counter < 12 || counter > 13)
+            if(counter < 12 || counter > 14 )
             clearCode = clearCode.replaceAll(("\\s*" + str + "\\s*"), String.valueOf(str.charAt(str.length() - 1)));
-            else if(counter >= 12 && counter < 14)
+            else if(counter >= 12 && counter <= 14)
                 clearCode = clearCode.replaceAll(("\\s*" + str + "\\s*"), String.valueOf(str.charAt(str.length() - 1)) + String.valueOf(str.charAt(str.length() - 1)));
+            else if(counter == 19 || counter == 20)
+                clearCode = clearCode.replaceAll(("\\s*" + str + "\\s*"), String.valueOf(str.charAt(str.length() - 2)) + String.valueOf(str.charAt(str.length() - 1)));
             counter++;
         }
 
