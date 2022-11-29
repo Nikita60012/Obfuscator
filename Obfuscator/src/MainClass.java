@@ -12,6 +12,7 @@ public class MainClass {
         boolean correctInput = false;
         String path = " ";
         while (!correctInput) {
+
             String file = in.nextLine();
             path = file;
 

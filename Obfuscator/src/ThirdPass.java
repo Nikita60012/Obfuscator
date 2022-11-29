@@ -16,7 +16,7 @@ class ThirdPass {
             int end = matcher.end();
             String oldName = result.substring(start + 6, end - 1);
             String newName = ClassNames.giveNewClassName(oldName);
-            result = matcher.replaceFirst("class " + newName + " ");
+            result = matcher.replaceFirst("class " + newName + "\\{");
             result = result.replaceAll( (" " + oldName + "\\("), (" " + newName + "\\("));
 
             String[] relustinhArray = {result, newName};

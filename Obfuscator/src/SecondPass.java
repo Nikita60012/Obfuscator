@@ -22,50 +22,10 @@ class SecondPass {
 
                 String newName = VariableNames.giveNewIdentifierName(oldName);
 
-                result = replacer(result, "" + oldName + " ", "" + newName + " ");
-                result = replacer(result, " " + oldName + " ", " " + newName + " ");
-                result = replacer(result, " " + oldName + ";", " " + newName + ";");
-                result = replacer(result, " " + oldName + "\\)", " " + newName + "\\)");
-                result = replacer(result, " " + oldName + "\\.", " " + newName + "\\.");
-                result = replacer(result, " " + oldName + "=", " " + newName + "=");
-                result = replacer(result, "\\(" + oldName + " ", "\\(" + newName + " ");
-                result = replacer(result, "\\." + oldName + " ", "\\." + newName + " ");
-                result = replacer(result, "=" + oldName + " ", "=" + newName + " ");
-                result = replacer(result, "\\(" + oldName + "\\)", "\\(" + newName + "\\)");
-                result = replacer(result, "\\(" + oldName + "\\.", "\\(" + newName + "\\.");
-                result = replacer(result, "\\." + oldName + "\\)", "\\." + newName + "\\)");
-                result = replacer(result, "\\." + oldName + "\\.", "\\." + newName + "\\.");
-                result = replacer(result, "=" + oldName + "\\)", "=" + newName + "\\)");
-                result = replacer(result, "\\(" + oldName + "=", "\\(" + newName + "=");
-                result = replacer(result, "=" + oldName + "\\.", "=" + newName + "\\.");
-                result = replacer(result, "\\." + oldName + "=", "\\." + newName + "=");
-                result = replacer(result, " " + oldName + ",", " " + newName + ",");
-                result = replacer(result, "\\(" + oldName + ",", "\\(" + newName + ",");
-                result = replacer(result, "\\." + oldName + ",", "\\." + newName + ",");
-                result = replacer(result, "," + oldName + "\\)", "," + newName + "\\)");
-                result = replacer(result, "," + oldName + "\\.", "," + newName + "\\.");
-                result = replacer(result, "," + oldName + ",", "," + newName + ",");
-                result = replacer(result, "," + oldName + " ", "," + newName + " ");
-                result = replacer(result, " " + oldName + "\\+", " " + newName + "\\+");
-                result = replacer(result, "\\+" + oldName + " ", "\\+" + newName + " ");
-                result = replacer(result, "\\+" + oldName + "\\+", "\\+" + newName + "\\+");
-                result = replacer(result, " " + oldName + "-", " " + newName + "-");
-                result = replacer(result, "-" + oldName + " ", "-" + newName + " ");
-                result = replacer(result, "-" + oldName + "-", "-" + newName + "-");
-                result = replacer(result, " " + oldName + "!", " " + newName + "!");
-                result = replacer(result, "!" + oldName + " ", "!" + newName + " ");
-                result = replacer(result, " " + oldName + "\\(", " " + newName + "\\(");
-                result = replacer(result, "\\[" + oldName + "\\]", "\\[" + newName + "\\]");
-                result = replacer(result, "\\[" + oldName + " ", "\\[" + newName + " ");
-                result = replacer(result, "\\[" + oldName + "\\+", "\\[" + newName + "\\+");
-                result = replacer(result, "\\[" + oldName + "-", "\\[" + newName + "-");
-                result = replacer(result, "\\[" + oldName + "\\*", "\\[" + newName + "\\*");
-                result = replacer(result, "\\[" + oldName + "/", "\\[" + newName + "/");
-                result = replacer(result, " " + oldName + "\\]", " " + newName + "\\]");
-                result = replacer(result, "\\+" + oldName + "\\]", "\\+" + newName + "\\]");
-                result = replacer(result, "-" + oldName + "\\]", "-" + newName + "\\]");
-                result = replacer(result, "\\*" + oldName + "\\]", "\\*" + newName + "\\]");
-                result = replacer(result, "/" + oldName + "\\]", "/" + newName + "\\]");
+                result = replacer(result, "\\s*" + oldName + "\\s*", " " + newName + " ");
+                //result = replacer(result, " " + oldName + ";", " " + newName + ";");
+                result = replacer(result, "\\(|\\s|\\.|,|=|-|\\*|/|\\+|\\[|\\{|!" + oldName + "\\)|\\s|\\.|,|=|-|\\*|/|\\+|\\]|\\}|!|;",  newName);
+
             }
         }
 
@@ -73,8 +33,14 @@ class SecondPass {
     }
     private static String replacer(String code, String oldName, String newName){
         String result = code;
-
-        result = result.replaceAll(oldName, newName);
+        Pattern pattern = Pattern.compile(oldName);
+        Matcher finder = pattern.matcher(result);
+        finder.find();
+        int start = finder.start();
+        int end = finder.end();
+        String begining = result.substring(start,start);
+        String ending = result.substring(end,end);
+        result = result.replaceAll(oldName, begining + newName + ending);
 
         return result;
     }
